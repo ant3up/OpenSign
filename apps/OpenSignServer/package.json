@@ -31,10 +31,7 @@
     "nyc": "^17.1.0",
     "prettier": "^3.6.2"
   },
-  "overrides": {
-    "ws": "$ws",
-    "parse": "$parse"
-  },
+
   "engines": {
     "node": ">=22.11.0"
   }
