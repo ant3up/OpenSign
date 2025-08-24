@@ -8,7 +8,12 @@ console.log('✅ Express and HTTP modules loaded');
 // Create the most basic Express app possible
 const app = express();
 
-console.log('✅ Express app created');
+// Add basic middleware
+app.use(require('cors')());
+app.use(require('express').json({ limit: '50mb' }));
+app.use(require('express').urlencoded({ limit: '50mb', extended: true }));
+
+console.log('✅ Express app created with middleware');
 
 // Basic health check endpoints - respond immediately
 app.get('/', function (req, res) {
@@ -36,6 +41,10 @@ console.log('✅ Routes defined');
 // Start the server immediately
 const port = process.env.PORT || 8080;
 console.log('🔧 Using port:', port);
+console.log('🔧 All environment variables:', Object.keys(process.env));
+console.log('🔧 PORT from env:', process.env.PORT);
+console.log('🔧 RAILWAY_STATIC_URL:', process.env.RAILWAY_STATIC_URL);
+console.log('🔧 RAILWAY_PUBLIC_DOMAIN:', process.env.RAILWAY_PUBLIC_DOMAIN);
 
 const httpServer = http.createServer(app);
 
@@ -46,6 +55,12 @@ httpServer.listen(port, '0.0.0.0', function () {
   console.log('🚀 Server is ready to accept requests!');
   console.log('🌐 Server bound to all interfaces (0.0.0.0)');
   console.log('🔧 Environment: PORT=' + process.env.PORT + ', NODE_ENV=' + process.env.NODE_ENV);
+  
+  // Test if server is actually listening
+  const address = httpServer.address();
+  console.log('🔧 Server address:', address);
+  console.log('🔧 Server port:', address.port);
+  console.log('🔧 Server family:', address.family);
 });
 
 console.log('✅ Server startup initiated');
