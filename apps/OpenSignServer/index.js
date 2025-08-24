@@ -141,6 +141,29 @@ app.get('/ping', (req, res) => {
   res.status(200).send('pong');
 });
 
+// Debug endpoint to test Parse Server loading
+app.get('/debug', (req, res) => {
+  console.log('🔍 Debug endpoint accessed');
+  
+  let debugInfo = {
+    nodeVersion: process.version,
+    workingDirectory: process.cwd(),
+    parseServerStatus: 'not tested'
+  };
+  
+  try {
+    console.log('🔍 Testing Parse Server module loading...');
+    const ParseServer = require('parse-server').ParseServer;
+    debugInfo.parseServerStatus = 'module loaded successfully';
+    console.log('✅ Parse Server module loaded in debug endpoint');
+  } catch (error) {
+    debugInfo.parseServerStatus = `failed: ${error.message}`;
+    console.error('❌ Parse Server module failed to load:', error.message);
+  }
+  
+  res.status(200).json(debugInfo);
+});
+
 console.log('✅ Routes defined');
 
 // Start the server
