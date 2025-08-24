@@ -31,4 +31,15 @@ cd apps/OpenSignServer
 npm install
 
 echo "=== Starting OpenSign Server ==="
-npm start
+npm start &
+
+# Wait a moment for the server to start up
+echo "=== Waiting for server to start ==="
+sleep 10
+
+# Check if server is responding
+echo "=== Checking server health ==="
+curl -f http://localhost:${PORT:-8080}/health || echo "Server not ready yet, continuing..."
+
+# Keep the script running
+wait

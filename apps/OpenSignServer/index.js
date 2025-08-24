@@ -221,6 +221,15 @@ app.get('/', function (req, res) {
   res.status(200).send('opensign-server is running !!!');
 });
 
+// Simple health check endpoint for Railway
+app.get('/health', function (req, res) {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    service: 'opensign-server'
+  });
+});
+
 if (!process.env.TESTING) {
   const port = process.env.PORT || 8080;
   const httpServer = http.createServer(app);
