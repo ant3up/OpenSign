@@ -62,21 +62,31 @@ httpServer.listen(port, '0.0.0.0', function () {
   console.log('📍 Health check available at: http://localhost:' + port + '/health');
   
   // Now initialize Parse Server and other components asynchronously
-  initializeAdvancedComponents();
+  setTimeout(() => {
+    initializeAdvancedComponents();
+  }, 1000); // Wait 1 second before starting complex initialization
 });
 
 // Initialize complex components after server is running
 async function initializeAdvancedComponents() {
   try {
-    console.log('🔄 Initializing Parse Server and other components...');
+    console.log('🔄 Starting advanced component initialization...');
     
-    // Import complex dependencies with error handling
-    const { ParseServer } = await import('parse-server');
+    // Test basic imports first
+    console.log('📦 Testing basic imports...');
     const Utils = await import('./Utils.js');
+    console.log('✅ Utils imported successfully');
+    
+    // Test Parse Server import
+    console.log('📦 Testing Parse Server import...');
+    const { ParseServer } = await import('parse-server');
+    console.log('✅ Parse Server imported successfully');
+    
+    // Test other imports
+    console.log('📦 Testing other imports...');
     const customRouteModule = await import('./cloud/customRoute/customApp.js');
     const authModule = await import('./auth/authadapter.js');
     const createContactIndex = await import('./migrationdb/createContactIndex.js');
-    
     console.log('✅ All imports successful');
     
     // Extract values from imported modules
@@ -84,9 +94,17 @@ async function initializeAdvancedComponents() {
     const customRoute = customRouteModule.app;
     const SSOAuth = authModule.SSOAuth;
     
+    console.log('🔧 Configuration values:', {
+      appName,
+      serverAppId,
+      useLocal,
+      databaseURI: process.env.DATABASE_URI ? 'configured' : 'not configured'
+    });
+    
     // Initialize file adapter
     let fsAdapter;
     try {
+      console.log('📁 Initializing file adapter...');
       if (useLocal !== 'true') {
         const AWS = await import('aws-sdk');
         const S3Adapter = await import('@parse/s3-files-adapter');
@@ -126,6 +144,7 @@ async function initializeAdvancedComponents() {
     }
 
     // Parse Server configuration
+    console.log('⚙️ Creating Parse Server configuration...');
     const config = {
       databaseURI: process.env.DATABASE_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/dev',
       cloud: function () {
@@ -182,6 +201,7 @@ async function initializeAdvancedComponents() {
     
     // Run database migrations
     try {
+      console.log('🗄️ Running database migrations...');
       const { exec } = await import('child_process');
       createContactIndex();
       const isWindows = process.platform === 'win32';
@@ -208,6 +228,7 @@ async function initializeAdvancedComponents() {
     
   } catch (err) {
     console.error('❌ Error initializing advanced components:', err);
+    console.error('❌ Error stack:', err.stack);
     console.log('⚠️ Server is running with basic functionality only');
     
     // Update health check to show partial status
@@ -238,4 +259,15 @@ process.on('SIGINT', () => {
     console.log('Server closed');
     process.exit(0);
   });
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('❌ Uncaught Exception:', err);
+  console.error('❌ Stack:', err.stack);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
 });
