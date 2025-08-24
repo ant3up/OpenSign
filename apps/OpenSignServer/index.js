@@ -1,15 +1,14 @@
+console.log('🚀 Starting ultra-minimal server...');
+
 const express = require('express');
 const http = require('http');
+
+console.log('✅ Express and HTTP modules loaded');
 
 // Create the most basic Express app possible
 const app = express();
 
-// Add request logging middleware
-app.use((req, res, next) => {
-  console.log(`📥 ${new Date().toISOString()} - ${req.method} ${req.url} from ${req.ip || req.connection.remoteAddress}`);
-  console.log(`📋 Headers: ${JSON.stringify(req.headers)}`);
-  next();
-});
+console.log('✅ Express app created');
 
 // Basic health check endpoints - respond immediately
 app.get('/', function (req, res) {
@@ -23,40 +22,33 @@ app.get('/health', function (req, res) {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'opensign-server',
-    message: 'Ultra-minimal server is running',
-    uptime: process.uptime(),
-    memory: process.memoryUsage()
+    message: 'Ultra-minimal server is running'
   });
 });
 
-// Add a simple ping endpoint for Railway
 app.get('/ping', function (req, res) {
   console.log('🏓 Ping endpoint accessed');
   res.status(200).send('pong');
 });
 
-// Catch-all route for any unmatched requests
-app.use(function (req, res) {
-  console.log('❓ Unmatched route accessed:', req.method, req.originalUrl);
-  res.status(404).json({
-    error: 'Route not found',
-    method: req.method,
-    url: req.originalUrl,
-    availableRoutes: ['/', '/health', '/ping']
-  });
-});
+console.log('✅ Routes defined');
 
 // Start the server immediately
 const port = process.env.PORT || 8080;
+console.log('🔧 Using port:', port);
+
 const httpServer = http.createServer(app);
+
+console.log('✅ HTTP server created');
 
 httpServer.listen(port, '0.0.0.0', function () {
   console.log('✅ Ultra-minimal OpenSign server running on port ' + port + '.');
   console.log('🚀 Server is ready to accept requests!');
-  console.log('📍 Health check available at: http://0.0.0.0:' + port + '/health');
   console.log('🌐 Server bound to all interfaces (0.0.0.0)');
   console.log('🔧 Environment: PORT=' + process.env.PORT + ', NODE_ENV=' + process.env.NODE_ENV);
 });
+
+console.log('✅ Server startup initiated');
 
 // Handle graceful shutdown
 process.on('SIGTERM', () => {
@@ -74,3 +66,5 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
+
+console.log('✅ Signal handlers registered');
