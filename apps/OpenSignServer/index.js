@@ -72,12 +72,17 @@ async function initializeAdvancedComponents() {
     
     // Import complex dependencies with error handling
     const { ParseServer } = await import('parse-server');
-    const { appName, cloudServerUrl, serverAppId, smtpenable, smtpsecure, useLocal } = await import('./Utils.js');
-    const { app as customRoute } = await import('./cloud/customRoute/customApp.js');
-    const { SSOAuth } = await import('./auth/authadapter.js');
+    const Utils = await import('./Utils.js');
+    const customRouteModule = await import('./cloud/customRoute/customApp.js');
+    const authModule = await import('./auth/authadapter.js');
     const createContactIndex = await import('./migrationdb/createContactIndex.js');
     
     console.log('✅ All imports successful');
+    
+    // Extract values from imported modules
+    const { appName, cloudServerUrl, serverAppId, smtpenable, smtpsecure, useLocal } = Utils;
+    const customRoute = customRouteModule.app;
+    const SSOAuth = authModule.SSOAuth;
     
     // Initialize file adapter
     let fsAdapter;
