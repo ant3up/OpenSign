@@ -12,16 +12,26 @@ app.use((req, res, next) => {
 
 // Basic health check endpoints - respond immediately
 app.get('/', function (req, res) {
+  console.log('📋 Root endpoint accessed');
   res.status(200).send('opensign-server is running !!!');
 });
 
 app.get('/health', function (req, res) {
+  console.log('🏥 Health check endpoint accessed');
   res.status(200).json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'opensign-server',
-    message: 'Ultra-minimal server is running'
+    message: 'Ultra-minimal server is running',
+    uptime: process.uptime(),
+    memory: process.memoryUsage()
   });
+});
+
+// Add a simple ping endpoint for Railway
+app.get('/ping', function (req, res) {
+  console.log('🏓 Ping endpoint accessed');
+  res.status(200).send('pong');
 });
 
 // Start the server immediately
