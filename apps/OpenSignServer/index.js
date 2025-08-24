@@ -76,7 +76,7 @@ async function initializeParseServer() {
     console.log('✅ Parse Server configured');
     
     // Mount Parse Server
-    app.use(parseServer.app);
+    app.use(parseServer);
     
     console.log('✅ Parse Server mounted at /api/app');
     
