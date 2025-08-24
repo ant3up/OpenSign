@@ -4,6 +4,7 @@
   "description": "Free and open source alternative to DocuSign",
   "main": "index.js",
   "scripts": {
+    "start": "cd apps/OpenSignServer && npm install && npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
     "lint-staged-changes": "lint-staged"
@@ -29,5 +30,9 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.1.0",
     "prettier": "3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.18.0"
   }
 }

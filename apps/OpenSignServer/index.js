@@ -219,12 +219,21 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 if (!process.env.TESTING) {
   const mountPath = process.env.PARSE_MOUNT || '/app';
   try {
+    console.log('🔌 Connecting to MongoDB...');
+    console.log('📊 Database URI:', config.databaseURI);
+    
     const server = new ParseServer(config);
     await server.start();
+    
+    console.log('✅ Parse Server started successfully!');
+    console.log('🌐 Server URL:', config.serverURL);
+    console.log('🔑 App ID:', config.appId);
+    
     app.use(mountPath, server.app);
   } catch (err) {
-    console.log(err);
-    process.exit();
+    console.error('❌ Parse Server failed to start:', err);
+    // Don't exit immediately, let the server start without Parse for now
+    console.log('⚠️ Continuing without Parse Server...');
   }
 }
 // Mount your custom express app
