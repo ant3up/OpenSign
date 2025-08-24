@@ -52,13 +52,26 @@ async function initializeParseServer() {
     console.log('🔧 Current working directory:', process.cwd());
     console.log('🔧 Node.js version:', process.version);
     
-    console.log('🔧 Loading Parse Server module...');
-    const ParseServer = require('parse-server').ParseServer;
-    console.log('✅ ParseServer module loaded');
+    // Test if we can even require the modules
+    console.log('🔧 Testing module loading...');
     
-    console.log('🔧 Loading Parse module...');
-    const Parse = require('parse/node');
-    console.log('✅ Parse module loaded');
+    try {
+      console.log('🔧 Loading Parse Server module...');
+      const ParseServer = require('parse-server').ParseServer;
+      console.log('✅ ParseServer module loaded');
+    } catch (moduleError) {
+      console.error('❌ Failed to load ParseServer module:', moduleError.message);
+      throw moduleError;
+    }
+    
+    try {
+      console.log('🔧 Loading Parse module...');
+      const Parse = require('parse/node');
+      console.log('✅ Parse module loaded');
+    } catch (moduleError) {
+      console.error('❌ Failed to load Parse module:', moduleError.message);
+      throw moduleError;
+    }
     
     console.log('✅ Parse modules loaded');
     
