@@ -108,15 +108,10 @@ async function initializeParseServer() {
     console.log('🔧 Parse Server app property:', typeof parseServer.app);
     console.log('🔧 Parse Server app keys:', parseServer.app ? Object.keys(parseServer.app) : 'no app property');
     
-    // Try mounting the Parse Server app
-    if (parseServer.app) {
-      app.use('/api/app', parseServer.app);
-      console.log('✅ Parse Server mounted at /api/app using parseServer.app');
-    } else {
-      // Fallback to direct mounting
-      app.use('/api/app', parseServer);
-      console.log('✅ Parse Server mounted at /api/app using direct mounting');
-    }
+    // For Parse Server 3.9.0, mount at the root path
+    console.log('🔧 Mounting Parse Server at root path...');
+    app.use(parseServer);
+    console.log('✅ Parse Server mounted at root path');
     
   } catch (error) {
     console.error('❌ Error initializing Parse Server:', error.message);
