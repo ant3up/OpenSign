@@ -76,7 +76,8 @@ async function initializeParseServer() {
     console.log('✅ Parse modules loaded');
     
     // Parse Server configuration
-    parseServer = new ParseServer({
+    console.log('🔧 Creating Parse Server configuration...');
+    const parseConfig = {
       databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
       appId: process.env.APP_ID || 'opensign',
       masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
@@ -91,7 +92,12 @@ async function initializeParseServer() {
         enableForPublic: true,
         enableForAnonymousUser: true
       }
-    });
+    };
+    
+    console.log('🔧 Parse Server config:', JSON.stringify(parseConfig, null, 2));
+    
+    console.log('🔧 Creating Parse Server instance...');
+    parseServer = new ParseServer(parseConfig);
     
     console.log('✅ Parse Server configured');
     console.log('🔧 Parse Server object type:', typeof parseServer);
