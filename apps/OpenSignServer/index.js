@@ -143,10 +143,7 @@ app.listen(port, '0.0.0.0', async function () {
   // Connect to MongoDB after server starts
   await connectToMongoDB();
   
-  // Initialize Parse Server after MongoDB connection
-  await initializeParseServer();
-  
-  // Add routes after Parse Server initialization
+  // Add routes first (before Parse Server initialization)
   app.get('/', (req, res) => {
     console.log('📋 Root endpoint accessed');
     res.status(200).send('opensign-server is running !!!');
@@ -291,8 +288,13 @@ app.listen(port, '0.0.0.0', async function () {
     }
   });
   
-  console.log('✅ Custom routes added after Parse Server initialization');
-});
+     console.log('✅ Custom routes added');
+   
+   // Initialize Parse Server after server is fully started and routes are defined
+   console.log('🔧 Initializing Parse Server after server startup...');
+   await initializeParseServer();
+   console.log('✅ Parse Server initialization completed');
+ });
 
 console.log('✅ Server startup initiated');
 
