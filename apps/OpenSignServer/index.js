@@ -164,7 +164,8 @@ app.get('/debug', (req, res) => {
     nodeVersion: process.version,
     workingDirectory: process.cwd(),
     parseServerStatus: 'not tested',
-    parseServerInstance: 'not tested'
+    parseServerInstance: 'not tested',
+    parseServerMount: 'not tested'
   };
   
   try {
@@ -173,22 +174,46 @@ app.get('/debug', (req, res) => {
     debugInfo.parseServerStatus = 'module loaded successfully';
     console.log('✅ Parse Server module loaded in debug endpoint');
     
-    // Test creating a Parse Server instance
+    // Test creating a Parse Server instance with the same config as main server
     console.log('🔍 Testing Parse Server instance creation...');
-    const testConfig = {
-      databaseURI: process.env.MONGO_URI || 'mongodb://localhost:27017/opensign',
-      appId: 'test',
-      masterKey: 'test',
-      serverURL: 'http://localhost:8080/test'
+    const parseConfig = {
+      databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
+      appId: process.env.APP_ID || 'opensign',
+      masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
+      serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
+      publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
+      mountPath: process.env.PARSE_MOUNT || '/api/app',
+      allowClientClassCreation: false,
+      allowCustomObjectId: true,
+      enableAnonymousUsers: true,
+      maxUploadSize: '100mb',
+      fileUpload: {
+        enableForPublic: true,
+        enableForAnonymousUser: true
+      }
     };
     
-    const testParseServer = new ParseServer(testConfig);
+    const testParseServer = new ParseServer(parseConfig);
     debugInfo.parseServerInstance = 'instance created successfully';
     console.log('✅ Parse Server instance created in debug endpoint');
+    
+    // Test mounting
+    console.log('🔍 Testing Parse Server mounting...');
+    console.log('🔧 Parse Server app property:', typeof testParseServer.app);
+    console.log('🔧 Parse Server app keys:', testParseServer.app ? Object.keys(testParseServer.app) : 'no app property');
+    
+    if (testParseServer.app) {
+      debugInfo.parseServerMount = 'parseServer.app exists and ready for mounting';
+    } else {
+      debugInfo.parseServerMount = 'parseServer.app does not exist, would use direct mounting';
+    }
+    console.log('✅ Parse Server mounting test completed');
     
   } catch (error) {
     if (error.message.includes('module')) {
       debugInfo.parseServerStatus = `failed: ${error.message}`;
+    } else if (error.message.includes('mount')) {
+      debugInfo.parseServerMount = `failed: ${error.message}`;
     } else {
       debugInfo.parseServerInstance = `failed: ${error.message}`;
     }
