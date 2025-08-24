@@ -54,7 +54,6 @@
     "speakeasy": "^2.0.0",
     "ws": "^8.18.3"
   },
-  "type": "module",
   "devDependencies": {
     "@babel/eslint-parser": "^7.27.5",
     "eslint": "^9.29.0",
