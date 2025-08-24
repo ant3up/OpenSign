@@ -128,96 +128,6 @@ console.log('🔧 PORT from env:', process.env.PORT);
 console.log('🔧 RAILWAY_STATIC_URL:', process.env.RAILWAY_STATIC_URL);
 console.log('🔧 RAILWAY_PUBLIC_DOMAIN:', process.env.RAILWAY_PUBLIC_DOMAIN);
 
-// Route handling
-app.get('/', (req, res) => {
-  console.log('📋 Root endpoint accessed');
-  res.status(200).send('opensign-server is running !!!');
-});
-
-app.get('/health', (req, res) => {
-  console.log('🏥 Health check endpoint accessed');
-  res.status(200).json({
-    status: 'healthy',
-    timestamp: new Date().toISOString(),
-    service: 'opensign-server',
-    message: 'Express server is running',
-    mongodb: db ? 'connected' : 'disconnected',
-    parseServer: parseServer ? 'initialized' : 'not initialized'
-  });
-});
-
-app.get('/ping', (req, res) => {
-  console.log('🏓 Ping endpoint accessed');
-  res.status(200).send('pong');
-});
-
-// Debug endpoint to test Parse Server loading
-app.get('/debug', (req, res) => {
-  console.log('🔍 Debug endpoint accessed');
-  
-  let debugInfo = {
-    nodeVersion: process.version,
-    workingDirectory: process.cwd(),
-    parseServerStatus: 'not tested',
-    parseServerInstance: 'not tested',
-    parseServerMount: 'not tested'
-  };
-  
-  try {
-    console.log('🔍 Testing Parse Server module loading...');
-    const ParseServer = require('parse-server').ParseServer;
-    debugInfo.parseServerStatus = 'module loaded successfully';
-    console.log('✅ Parse Server module loaded in debug endpoint');
-    
-    // Test creating a Parse Server instance with the same config as main server
-    console.log('🔍 Testing Parse Server instance creation...');
-    const parseConfig = {
-      databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
-      appId: process.env.APP_ID || 'opensign',
-      masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
-      serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
-      publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
-      mountPath: process.env.PARSE_MOUNT || '/api/app',
-      allowClientClassCreation: false,
-      allowCustomObjectId: true,
-      enableAnonymousUsers: true,
-      maxUploadSize: '100mb',
-      fileUpload: {
-        enableForPublic: true,
-        enableForAnonymousUser: true
-      }
-    };
-    
-    const testParseServer = new ParseServer(parseConfig);
-    debugInfo.parseServerInstance = 'instance created successfully';
-    console.log('✅ Parse Server instance created in debug endpoint');
-    
-    // Test mounting
-    console.log('🔍 Testing Parse Server mounting...');
-    console.log('🔧 Parse Server app property:', typeof testParseServer.app);
-    console.log('🔧 Parse Server app keys:', testParseServer.app ? Object.keys(testParseServer.app) : 'no app property');
-    
-    if (testParseServer.app) {
-      debugInfo.parseServerMount = 'parseServer.app exists and ready for mounting';
-    } else {
-      debugInfo.parseServerMount = 'parseServer.app does not exist, would use direct mounting';
-    }
-    console.log('✅ Parse Server mounting test completed');
-    
-  } catch (error) {
-    if (error.message.includes('module')) {
-      debugInfo.parseServerStatus = `failed: ${error.message}`;
-    } else if (error.message.includes('mount')) {
-      debugInfo.parseServerMount = `failed: ${error.message}`;
-    } else {
-      debugInfo.parseServerInstance = `failed: ${error.message}`;
-    }
-    console.error('❌ Parse Server test failed:', error.message);
-  }
-  
-  res.status(200).json(debugInfo);
-});
-
 console.log('✅ Routes defined');
 
 // Start the server
@@ -232,6 +142,98 @@ app.listen(port, '0.0.0.0', async function () {
   
   // Initialize Parse Server after MongoDB connection
   await initializeParseServer();
+  
+  // Add routes after Parse Server initialization
+  app.get('/', (req, res) => {
+    console.log('📋 Root endpoint accessed');
+    res.status(200).send('opensign-server is running !!!');
+  });
+
+  app.get('/health', (req, res) => {
+    console.log('🏥 Health check endpoint accessed');
+    res.status(200).json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      service: 'opensign-server',
+      message: 'Express server is running',
+      mongodb: db ? 'connected' : 'disconnected',
+      parseServer: parseServer ? 'initialized' : 'not initialized'
+    });
+  });
+
+  app.get('/ping', (req, res) => {
+    console.log('🏓 Ping endpoint accessed');
+    res.status(200).send('pong');
+  });
+
+  // Debug endpoint to test Parse Server loading
+  app.get('/debug', (req, res) => {
+    console.log('🔍 Debug endpoint accessed');
+    
+    let debugInfo = {
+      nodeVersion: process.version,
+      workingDirectory: process.cwd(),
+      parseServerStatus: 'not tested',
+      parseServerInstance: 'not tested',
+      parseServerMount: 'not tested'
+    };
+    
+    try {
+      console.log('🔍 Testing Parse Server module loading...');
+      const ParseServer = require('parse-server').ParseServer;
+      debugInfo.parseServerStatus = 'module loaded successfully';
+      console.log('✅ Parse Server module loaded in debug endpoint');
+      
+      // Test creating a Parse Server instance with the same config as main server
+      console.log('🔍 Testing Parse Server instance creation...');
+      const parseConfig = {
+        databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
+        appId: process.env.APP_ID || 'opensign',
+        masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
+        serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
+        publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
+        mountPath: process.env.PARSE_MOUNT || '/api/app',
+        allowClientClassCreation: false,
+        allowCustomObjectId: true,
+        enableAnonymousUsers: true,
+        maxUploadSize: '100mb',
+        fileUpload: {
+          enableForPublic: true,
+          enableForAnonymousUser: true
+        }
+      };
+      
+      const testParseServer = new ParseServer(parseConfig);
+      debugInfo.parseServerInstance = 'instance created successfully';
+      console.log('✅ Parse Server instance created in debug endpoint');
+      
+      // Test mounting
+      console.log('🔍 Testing Parse Server mounting...');
+      console.log('🔧 Parse Server app property:', typeof testParseServer.app);
+      console.log('🔧 Parse Server app keys:', testParseServer.app ? Object.keys(testParseServer.app) : 'no app property');
+      
+      if (testParseServer.app) {
+        debugInfo.parseServerMount = 'parseServer.app exists and ready for mounting';
+      } else {
+        debugInfo.parseServerMount = 'parseServer.app does not exist, would use direct mounting';
+      }
+      console.log('✅ Parse Server mounting test completed');
+      
+    } catch (error) {
+      if (error.message.includes('module')) {
+        debugInfo.parseServerStatus = `failed: ${error.message}`;
+      } else if (error.message.includes('mount')) {
+        debugInfo.parseServerMount = `failed: ${error.message}`;
+      } else {
+        debugInfo.parseServerInstance = `failed: ${error.message}`;
+      }
+      console.error('❌ Parse Server test failed:', error.message);
+    }
+    
+    res.status(200).json(debugInfo);
+  });
+  
+  console.log('✅ Custom routes added after Parse Server initialization');
 });
 
 console.log('✅ Server startup initiated');
