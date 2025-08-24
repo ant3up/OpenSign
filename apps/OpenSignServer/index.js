@@ -43,6 +43,51 @@ async function connectToMongoDB() {
   }
 }
 
+// Initialize Parse Server
+let parseServer = null;
+
+async function initializeParseServer() {
+  try {
+    console.log('🔧 Initializing Parse Server...');
+    
+    const ParseServer = require('parse-server').ParseServer;
+    const Parse = require('parse/node');
+    
+    console.log('✅ Parse modules loaded');
+    
+    // Parse Server configuration
+    parseServer = new ParseServer({
+      databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
+      appId: process.env.APP_ID || 'opensign',
+      masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
+      serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
+      publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
+      mountPath: process.env.PARSE_MOUNT || '/api/app',
+      allowClientClassCreation: false,
+      allowCustomObjectId: true,
+      enableAnonymousUsers: true,
+      enableSingleSchemaCache: true,
+      maxUploadSize: '100mb',
+      fileUpload: {
+        enableForPublic: true,
+        enableForAnonymousUser: true
+      }
+    });
+    
+    console.log('✅ Parse Server configured');
+    
+    // Mount Parse Server
+    app.use(parseServer);
+    
+    console.log('✅ Parse Server mounted at /api/app');
+    
+  } catch (error) {
+    console.error('❌ Error initializing Parse Server:', error.message);
+    console.error('❌ Stack trace:', error.stack);
+    console.log('⚠️ Continuing without Parse Server...');
+  }
+}
+
 // Create a simple HTTP server with Express
 const port = process.env.PORT || 8080;
 console.log('🔧 Using port:', port);
@@ -64,7 +109,8 @@ app.get('/health', (req, res) => {
     timestamp: new Date().toISOString(),
     service: 'opensign-server',
     message: 'Express server is running',
-    mongodb: db ? 'connected' : 'disconnected'
+    mongodb: db ? 'connected' : 'disconnected',
+    parseServer: parseServer ? 'initialized' : 'not initialized'
   });
 });
 
@@ -84,6 +130,9 @@ app.listen(port, '0.0.0.0', async function () {
   
   // Connect to MongoDB after server starts
   await connectToMongoDB();
+  
+  // Initialize Parse Server after MongoDB connection
+  await initializeParseServer();
 });
 
 console.log('✅ Server startup initiated');
