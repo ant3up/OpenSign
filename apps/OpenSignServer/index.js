@@ -116,6 +116,9 @@ async function initializeParseServer() {
   } catch (error) {
     console.error('❌ Error initializing Parse Server:', error.message);
     console.error('❌ Stack trace:', error.stack);
+    console.error('❌ Error name:', error.name);
+    console.error('❌ Error code:', error.code);
+    console.error('❌ Full error object:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
     console.log('⚠️ Continuing without Parse Server...');
   }
 }
@@ -231,6 +234,61 @@ app.listen(port, '0.0.0.0', async function () {
     }
     
     res.status(200).json(debugInfo);
+  });
+
+  // Test endpoint to try mounting Parse Server on-demand
+  app.get('/test-mount', async (req, res) => {
+    console.log('🔧 Test mount endpoint accessed');
+    
+    try {
+      console.log('🔧 Testing Parse Server mounting on-demand...');
+      const ParseServer = require('parse-server').ParseServer;
+      
+      const parseConfig = {
+        databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
+        appId: process.env.APP_ID || 'opensign',
+        masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
+        serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
+        publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
+        mountPath: process.env.PARSE_MOUNT || '/api/app',
+        allowClientClassCreation: false,
+        allowCustomObjectId: true,
+        enableAnonymousUsers: true,
+        maxUploadSize: '100mb',
+        fileUpload: {
+          enableForPublic: true,
+          enableForAnonymousUser: true
+        }
+      };
+      
+      const testParseServer = new ParseServer(parseConfig);
+      console.log('✅ Parse Server instance created');
+      
+      // Try mounting
+      console.log('🔧 Attempting to mount Parse Server...');
+      app.use('/test-parse', testParseServer);
+      console.log('✅ Parse Server mounted at /test-parse');
+      
+      res.status(200).json({
+        success: true,
+        message: 'Parse Server mounted successfully at /test-parse',
+        mountPath: '/test-parse'
+      });
+      
+    } catch (error) {
+      console.error('❌ Test mount failed:', error.message);
+      console.error('❌ Error stack:', error.stack);
+      console.error('❌ Error name:', error.name);
+      console.error('❌ Error code:', error.code);
+      
+      res.status(500).json({
+        success: false,
+        error: error.message,
+        errorName: error.name,
+        errorCode: error.code,
+        stack: error.stack
+      });
+    }
   });
   
   console.log('✅ Custom routes added after Parse Server initialization');
