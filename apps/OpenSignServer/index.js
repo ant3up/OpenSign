@@ -154,7 +154,8 @@ app.get('/debug', (req, res) => {
   let debugInfo = {
     nodeVersion: process.version,
     workingDirectory: process.cwd(),
-    parseServerStatus: 'not tested'
+    parseServerStatus: 'not tested',
+    parseServerInstance: 'not tested'
   };
   
   try {
@@ -162,9 +163,27 @@ app.get('/debug', (req, res) => {
     const ParseServer = require('parse-server').ParseServer;
     debugInfo.parseServerStatus = 'module loaded successfully';
     console.log('✅ Parse Server module loaded in debug endpoint');
+    
+    // Test creating a Parse Server instance
+    console.log('🔍 Testing Parse Server instance creation...');
+    const testConfig = {
+      databaseURI: process.env.MONGO_URI || 'mongodb://localhost:27017/opensign',
+      appId: 'test',
+      masterKey: 'test',
+      serverURL: 'http://localhost:8080/test'
+    };
+    
+    const testParseServer = new ParseServer(testConfig);
+    debugInfo.parseServerInstance = 'instance created successfully';
+    console.log('✅ Parse Server instance created in debug endpoint');
+    
   } catch (error) {
-    debugInfo.parseServerStatus = `failed: ${error.message}`;
-    console.error('❌ Parse Server module failed to load:', error.message);
+    if (error.message.includes('module')) {
+      debugInfo.parseServerStatus = `failed: ${error.message}`;
+    } else {
+      debugInfo.parseServerInstance = `failed: ${error.message}`;
+    }
+    console.error('❌ Parse Server test failed:', error.message);
   }
   
   res.status(200).json(debugInfo);
