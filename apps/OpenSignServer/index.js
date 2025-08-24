@@ -4,6 +4,12 @@ const http = require('http');
 // Create the most basic Express app possible
 const app = express();
 
+// Add request logging middleware
+app.use((req, res, next) => {
+  console.log(`📥 ${new Date().toISOString()} - ${req.method} ${req.url} from ${req.ip || req.connection.remoteAddress}`);
+  next();
+});
+
 // Basic health check endpoints - respond immediately
 app.get('/', function (req, res) {
   res.status(200).send('opensign-server is running !!!');
@@ -25,7 +31,9 @@ const httpServer = http.createServer(app);
 httpServer.listen(port, '0.0.0.0', function () {
   console.log('✅ Ultra-minimal OpenSign server running on port ' + port + '.');
   console.log('🚀 Server is ready to accept requests!');
-  console.log('📍 Health check available at: http://localhost:' + port + '/health');
+  console.log('📍 Health check available at: http://0.0.0.0:' + port + '/health');
+  console.log('🌐 Server bound to all interfaces (0.0.0.0)');
+  console.log('🔧 Environment: PORT=' + process.env.PORT + ', NODE_ENV=' + process.env.NODE_ENV);
 });
 
 // Handle graceful shutdown
