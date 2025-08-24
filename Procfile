@@ -1,1 +1,1 @@
-web: bash start.sh
+web: cd apps/OpenSignServer && npm install && npm start
