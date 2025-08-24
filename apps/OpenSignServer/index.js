@@ -49,9 +49,16 @@ let parseServer = null;
 async function initializeParseServer() {
   try {
     console.log('🔧 Initializing Parse Server...');
+    console.log('🔧 Current working directory:', process.cwd());
+    console.log('🔧 Node.js version:', process.version);
     
+    console.log('🔧 Loading Parse Server module...');
     const ParseServer = require('parse-server').ParseServer;
+    console.log('✅ ParseServer module loaded');
+    
+    console.log('🔧 Loading Parse module...');
     const Parse = require('parse/node');
+    console.log('✅ Parse module loaded');
     
     console.log('✅ Parse modules loaded');
     
@@ -74,8 +81,11 @@ async function initializeParseServer() {
     });
     
     console.log('✅ Parse Server configured');
+    console.log('🔧 Parse Server object type:', typeof parseServer);
+    console.log('🔧 Parse Server object keys:', Object.keys(parseServer));
     
     // Mount Parse Server
+    console.log('🔧 Attempting to mount Parse Server...');
     app.use(parseServer);
     
     console.log('✅ Parse Server mounted at /api/app');
