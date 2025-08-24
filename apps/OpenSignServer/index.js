@@ -66,7 +66,6 @@ async function initializeParseServer() {
       allowClientClassCreation: false,
       allowCustomObjectId: true,
       enableAnonymousUsers: true,
-      enableSingleSchemaCache: true,
       maxUploadSize: '100mb',
       fileUpload: {
         enableForPublic: true,
@@ -77,7 +76,7 @@ async function initializeParseServer() {
     console.log('✅ Parse Server configured');
     
     // Mount Parse Server
-    app.use(parseServer);
+    app.use(parseServer.app);
     
     console.log('✅ Parse Server mounted at /api/app');
     
