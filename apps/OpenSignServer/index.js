@@ -160,8 +160,17 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(function (req, res, next) {
   req.headers['x-real-ip'] = getUserIP(req);
-  const publicUrl = 'https://' + req?.get('host');
-  req.headers['public_url'] = publicUrl;
+  
+  // Handle Railway health check requests
+  const host = req?.get('host');
+  if (host === 'healthcheck.railway.app') {
+    // For Railway health checks, use a default public URL
+    req.headers['public_url'] = process.env.PUBLIC_URL || 'https://localhost:8080';
+  } else {
+    const publicUrl = 'https://' + host;
+    req.headers['public_url'] = publicUrl;
+  }
+  
   next();
 });
 function getUserIP(request) {
@@ -178,6 +187,11 @@ function getUserIP(request) {
 }
 
 app.use(async function (req, res, next) {
+  // Skip validation for health check requests
+  if (req.path === '/health' || req.get('host') === 'healthcheck.railway.app') {
+    return next();
+  }
+  
   const isFilePath = req.path.includes('files') || false;
   if (isFilePath && req.method.toLowerCase() === 'get') {
     const serverUrl = new URL(process.env.SERVER_URL);
