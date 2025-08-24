@@ -36,7 +36,7 @@ app.get('/ping', function (req, res) {
 });
 
 // Catch-all route for any unmatched requests
-app.use('*', function (req, res) {
+app.use(function (req, res) {
   console.log('❓ Unmatched route accessed:', req.method, req.originalUrl);
   res.status(404).json({
     error: 'Route not found',
