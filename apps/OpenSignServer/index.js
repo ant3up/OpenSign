@@ -7,6 +7,7 @@ const app = express();
 // Add request logging middleware
 app.use((req, res, next) => {
   console.log(`📥 ${new Date().toISOString()} - ${req.method} ${req.url} from ${req.ip || req.connection.remoteAddress}`);
+  console.log(`📋 Headers: ${JSON.stringify(req.headers)}`);
   next();
 });
 
@@ -32,6 +33,17 @@ app.get('/health', function (req, res) {
 app.get('/ping', function (req, res) {
   console.log('🏓 Ping endpoint accessed');
   res.status(200).send('pong');
+});
+
+// Catch-all route for any unmatched requests
+app.use('*', function (req, res) {
+  console.log('❓ Unmatched route accessed:', req.method, req.originalUrl);
+  res.status(404).json({
+    error: 'Route not found',
+    method: req.method,
+    url: req.originalUrl,
+    availableRoutes: ['/', '/health', '/ping']
+  });
 });
 
 // Start the server immediately

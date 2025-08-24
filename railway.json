@@ -5,7 +5,7 @@
   },
   "deploy": {
     "startCommand": "cd apps/OpenSignServer && npm install && npm start",
-    "healthcheckPath": "/ping",
+    "healthcheckPath": "/",
     "healthcheckTimeout": 600,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 5
