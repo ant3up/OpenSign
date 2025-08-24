@@ -15,46 +15,9 @@ app.use(require('express').urlencoded({ limit: '50mb', extended: true }));
 
 console.log('✅ Express app created with middleware');
 
-// Initialize Parse Server (with error handling)
-console.log('🔧 Initializing Parse Server...');
-
-try {
-  const ParseServer = require('parse-server').ParseServer;
-  const Parse = require('parse/node');
-
-  console.log('✅ Parse modules loaded');
-
-  // Parse Server configuration
-  const api = new ParseServer({
-    databaseURI: process.env.DATABASE_URI || process.env.MONGO_URI || 'mongodb://localhost:27017/opensign',
-    appId: process.env.APP_ID || 'opensign',
-    masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
-    serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
-    publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
-    mountPath: process.env.PARSE_MOUNT || '/api/app',
-    allowClientClassCreation: false,
-    allowCustomObjectId: true,
-    enableAnonymousUsers: true,
-    enableSingleSchemaCache: true,
-    maxUploadSize: '100mb',
-    fileUpload: {
-      enableForPublic: true,
-      enableForAnonymousUser: true
-    }
-  });
-
-  console.log('✅ Parse Server configured');
-
-  // Mount Parse Server
-  app.use(api);
-
-  console.log('✅ Parse Server mounted at /api/app');
-
-} catch (error) {
-  console.error('❌ Error initializing Parse Server:', error.message);
-  console.error('❌ Stack trace:', error.stack);
-  console.log('⚠️ Continuing without Parse Server...');
-}
+// Skip Parse Server for now - focus on basic server
+console.log('⚠️ Skipping Parse Server initialization for now...');
+console.log('⚠️ Will add Parse Server functionality later...');
 
 // Basic health check endpoints - respond immediately
 app.get('/', function (req, res) {
