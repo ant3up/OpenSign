@@ -24,11 +24,59 @@ echo "PARSE_MOUNT: $PARSE_MOUNT"
 echo "USE_LOCAL: $USE_LOCAL"
 echo "SERVER_URL: $SERVER_URL"
 echo "PUBLIC_URL: $PUBLIC_URL"
+
+# Set database URI with fallback (prioritize MongoDB Atlas)
+if [ -n "$MONGO_URI" ]; then
+  export DATABASE_URI="$MONGO_URI"
+  echo "Using MongoDB Atlas MONGO_URI: $DATABASE_URI"
+elif [ -n "$DATABASE_URI" ]; then
+  echo "Using provided DATABASE_URI: $DATABASE_URI"
+elif [ -n "$MONGO_URL" ]; then
+  export DATABASE_URI="$MONGO_URL"
+  echo "Using Railway MONGO_URL: $DATABASE_URI"
+elif [ -n "$MONGODB_URL" ]; then
+  export DATABASE_URI="$MONGODB_URL"
+  echo "Using Railway MongoDB URL: $DATABASE_URI"
+else
+  export DATABASE_URI="mongodb://localhost:27017/opensign"
+  echo "Using fallback database URI: $DATABASE_URI"
+fi
+
 echo "DATABASE_URI: $DATABASE_URI"
 
 echo "=== Installing OpenSign Server Dependencies ==="
 cd apps/OpenSignServer
 npm install
+
+# Test MongoDB Atlas connection if MONGO_URI is provided
+if [ -n "$MONGO_URI" ]; then
+  echo "=== Testing MongoDB Atlas Connection ==="
+  # Install mongodb client for testing
+  npm install mongodb --no-save
+  
+  # Create a simple test script
+  cat > test-mongo.js << 'EOF'
+const { MongoClient } = require('mongodb');
+
+async function testConnection() {
+  try {
+    const client = new MongoClient(process.env.MONGO_URI);
+    await client.connect();
+    console.log('✅ MongoDB Atlas connection successful!');
+    await client.close();
+  } catch (error) {
+    console.error('❌ MongoDB Atlas connection failed:', error.message);
+    process.exit(1);
+  }
+}
+
+testConnection();
+EOF
+
+  # Run the test
+  node test-mongo.js
+  rm test-mongo.js
+fi
 
 echo "=== Starting OpenSign Server ==="
 npm start &

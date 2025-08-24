@@ -19,7 +19,7 @@
     "USE_LOCAL": "true",
     "SERVER_URL": "https://${RAILWAY_PUBLIC_DOMAIN}/api/app",
     "PUBLIC_URL": "https://${RAILWAY_PUBLIC_DOMAIN}",
-    "DATABASE_URI": "${MONGO_URL}",
+    "DATABASE_URI": "${MONGO_URI}",
     "RAILWAY_HEALTHCHECK_TIMEOUT_SEC": "1200"
   }
 }
