@@ -1,13 +1,20 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS"
+    "builder": "NIXPACKS",
+    "buildCommand": "cd apps/OpenSign && npm install && npm run build-linux"
   },
   "deploy": {
-    "startCommand": "cd apps/OpenSignServer && npm install && npm start",
+    "startCommand": "cd apps/OpenSign && npm start",
     "healthcheckPath": "/",
-    "healthcheckTimeout": 600,
+    "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 5
+    "restartPolicyMaxRetries": 10
+  },
+  "variables": {
+    "NODE_ENV": "production",
+    "PORT": "3000",
+    "REACT_APP_APPID": "opensign",
+    "REACT_APP_SERVERURL": "https://opensign-production-ee42.up.railway.app/parse"
   }
 }
