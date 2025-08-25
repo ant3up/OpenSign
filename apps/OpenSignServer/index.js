@@ -140,10 +140,7 @@ app.listen(port, '0.0.0.0', async function () {
   console.log('🌐 Server bound to all interfaces (0.0.0.0)');
   console.log('🔧 Environment: PORT=' + process.env.PORT + ', NODE_ENV=' + process.env.NODE_ENV);
   
-  // Connect to MongoDB after server starts
-  await connectToMongoDB();
-  
-  // Add routes first (before Parse Server initialization)
+  // Register basic routes immediately so healthchecks pass even if DB is down
   app.get('/', (req, res) => {
     console.log('📋 Root endpoint accessed');
     res.status(200).send('opensign-server is running !!!');
@@ -165,6 +162,9 @@ app.listen(port, '0.0.0.0', async function () {
     console.log('🏓 Ping endpoint accessed');
     res.status(200).send('pong');
   });
+
+  // Connect to MongoDB after lightweight routes are registered
+  await connectToMongoDB();
 
   // Debug endpoint to test Parse Server loading
   app.get('/debug', (req, res) => {
