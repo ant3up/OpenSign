@@ -77,22 +77,7 @@ async function initializeParseServer() {
     
     // Parse Server configuration
     console.log('🔧 Creating Parse Server configuration...');
-    const parseConfig = {
-      databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
-      appId: process.env.APP_ID || 'opensign',
-      masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
-      serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
-      publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
-      mountPath: process.env.PARSE_MOUNT || '/api/app',
-      allowClientClassCreation: false,
-      allowCustomObjectId: true,
-      enableAnonymousUsers: true,
-      maxUploadSize: '100mb',
-      fileUpload: {
-        enableForPublic: true,
-        enableForAnonymousUser: true
-      }
-    };
+    const parseConfig = require('./parse-config');
     
     console.log('🔧 Parse Server config:', JSON.stringify(parseConfig, null, 2));
     
@@ -186,22 +171,7 @@ app.listen(port, '0.0.0.0', async function () {
       
       // Test creating a Parse Server instance with the same config as main server
       console.log('🔍 Testing Parse Server instance creation...');
-      const parseConfig = {
-        databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
-        appId: process.env.APP_ID || 'opensign',
-        masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
-        serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
-        publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
-        mountPath: process.env.PARSE_MOUNT || '/api/app',
-        allowClientClassCreation: false,
-        allowCustomObjectId: true,
-        enableAnonymousUsers: true,
-        maxUploadSize: '100mb',
-        fileUpload: {
-          enableForPublic: true,
-          enableForAnonymousUser: true
-        }
-      };
+      const parseConfig = require('./parse-config');
       
       const testParseServer = new ParseServer(parseConfig);
       debugInfo.parseServerInstance = 'instance created successfully';
@@ -241,22 +211,7 @@ app.listen(port, '0.0.0.0', async function () {
       console.log('🔧 Testing Parse Server mounting on-demand...');
       const ParseServer = require('parse-server').ParseServer;
       
-      const parseConfig = {
-        databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
-        appId: process.env.APP_ID || 'opensign',
-        masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
-        serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
-        publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
-        mountPath: process.env.PARSE_MOUNT || '/api/app',
-        allowClientClassCreation: false,
-        allowCustomObjectId: true,
-        enableAnonymousUsers: true,
-        maxUploadSize: '100mb',
-        fileUpload: {
-          enableForPublic: true,
-          enableForAnonymousUser: true
-        }
-      };
+      const parseConfig = require('./parse-config');
       
       const testParseServer = new ParseServer(parseConfig);
       console.log('✅ Parse Server instance created');

@@ -1,46 +1,73 @@
-# Open Sign
+# Welcome to your Lovable project
 
-Open source is true platform to sign pdf with digital signature
+## Project info
 
-## Features
+**URL**: https://lovable.dev/projects/e43346bc-79ea-4a33-8879-404057e9d04e
 
-- **Digital PDF Signing**: Sign PDFs with digital signatures
-- **Email to PDF Processor**: Automatically extract data from emails and fill PDF templates
-- **Template Management**: Create and manage PDF templates
-- **Contact Management**: Organize contacts and signers
-- **Document Tracking**: Track document status and completion
-- **Multi-language Support**: Available in multiple languages
+## How can I edit this code?
 
-## Available Scripts
+There are several ways of editing your application.
 
-In the project directory, you can run:
+**Use Lovable**
 
-### `npm start`
+Simply visit the [Lovable Project](https://lovable.dev/projects/e43346bc-79ea-4a33-8879-404057e9d04e) and start prompting.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Changes made via Lovable will be committed automatically to this repo.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Use your preferred IDE**
 
-### `npm run build`
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Follow these steps:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-## Email to PDF Processor
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-The Email to PDF Processor is a powerful feature that automatically extracts data from emails and intelligently maps it to PDF form fields. This tool is designed to handle emails that don't follow a particular format, making it perfect for processing various types of email communications and automatically filling PDF templates.
+# Step 3: Install the necessary dependencies.
+npm i
 
-### Key Features:
-- **Intelligent Data Extraction**: Automatically identifies common data patterns
-- **Smart Field Matching**: Maps extracted data to appropriate PDF form fields
-- **User Confirmation System**: Asks for clarification when unsure about mappings
-- **Multiple Input Methods**: Support for file upload, text pasting, and manual input
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
+```
 
-For detailed documentation, see [EMAIL_TO_PDF_README.md](EMAIL_TO_PDF_README.md)
+**Edit a file directly in GitHub**
+
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
+
+**Use GitHub Codespaces**
+
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
+
+## What technologies are used for this project?
+
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/e43346bc-79ea-4a33-8879-404057e9d04e) and click on Share -> Publish.
+
+## Can I connect a custom domain to my Lovable project?
+
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
