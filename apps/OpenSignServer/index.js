@@ -103,15 +103,15 @@ async function initializeParseServer() {
     console.log('🔧 Parse Server object type:', typeof parseServer);
     console.log('🔧 Parse Server object keys:', Object.keys(parseServer));
     
-    // Mount Parse Server
+    // Mount Parse Server using the same logic that works in test-mount
     console.log('🔧 Attempting to mount Parse Server...');
     console.log('🔧 Parse Server app property:', typeof parseServer.app);
     console.log('🔧 Parse Server app keys:', parseServer.app ? Object.keys(parseServer.app) : 'no app property');
     
-    // For Parse Server 3.9.0, mount at the root path
-    console.log('🔧 Mounting Parse Server at root path...');
-    app.use(parseServer);
-    console.log('✅ Parse Server mounted at root path');
+    // Use the same mounting approach that works in test-mount
+    console.log('🔧 Mounting Parse Server at /parse...');
+    app.use('/parse', parseServer);
+    console.log('✅ Parse Server mounted at /parse');
     
   } catch (error) {
     console.error('❌ Error initializing Parse Server:', error.message);
@@ -290,10 +290,52 @@ app.listen(port, '0.0.0.0', async function () {
   
      console.log('✅ Custom routes added');
    
-   // Initialize Parse Server after server is fully started and routes are defined
-   console.log('🔧 Initializing Parse Server after server startup...');
-   await initializeParseServer();
-   console.log('✅ Parse Server initialization completed');
+       // Initialize Parse Server after server is fully started and routes are defined
+    console.log('🔧 Initializing Parse Server after server startup...');
+    
+    // Add a small delay to ensure server is fully ready
+    setTimeout(async () => {
+      try {
+        console.log('🔧 Testing Parse Server mounting on-demand...');
+        const ParseServer = require('parse-server').ParseServer;
+        
+        const parseConfig = {
+          databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
+          appId: process.env.APP_ID || 'opensign',
+          masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
+          serverURL: process.env.SERVER_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/app`,
+          publicServerURL: process.env.PUBLIC_URL || `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`,
+          mountPath: process.env.PARSE_MOUNT || '/api/app',
+          allowClientClassCreation: false,
+          allowCustomObjectId: true,
+          enableAnonymousUsers: true,
+          maxUploadSize: '100mb',
+          fileUpload: {
+            enableForPublic: true,
+            enableForAnonymousUser: true
+          }
+        };
+        
+        const testParseServer = new ParseServer(parseConfig);
+        console.log('✅ Parse Server instance created');
+        
+        // Try mounting
+        console.log('🔧 Attempting to mount Parse Server...');
+        app.use('/parse', testParseServer);
+        console.log('✅ Parse Server mounted at /parse');
+        
+        // Update the global parseServer variable
+        parseServer = testParseServer;
+        console.log('✅ Parse Server initialization completed');
+        
+      } catch (error) {
+        console.error('❌ Parse Server initialization failed:', error.message);
+        console.error('❌ Error stack:', error.stack);
+        console.error('❌ Error name:', error.name);
+        console.error('❌ Error code:', error.code);
+        console.log('⚠️ Continuing without Parse Server...');
+      }
+    }, 1000); // 1 second delay
  });
 
 console.log('✅ Server startup initiated');

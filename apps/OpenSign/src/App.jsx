@@ -31,6 +31,7 @@ const UpdateExistUserAdmin = lazy(() => import("./pages/UpdateExistUserAdmin"));
 const Preferences = lazy(() => import("./pages/Preferences"));
 const Login = lazy(() => import("./pages/Login"));
 const VerifyDocument = lazy(() => import("./pages/VerifyDocument"));
+const EmailToPdfProcessor = lazy(() => import("./pages/EmailToPdfProcessor"));
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.mjs`;
 const AppLoader = () => {
   return (
@@ -173,6 +174,10 @@ function App() {
               <Route
                 path="/preferences"
                 element={<LazyPage Page={Preferences} />}
+              />
+              <Route
+                path="/email-to-pdf"
+                element={<LazyPage Page={EmailToPdfProcessor} />}
               />
             </Route>
             <Route path="/success" element={<DocSuccessPage />} />

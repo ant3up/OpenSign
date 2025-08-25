@@ -80,6 +80,14 @@ const sidebarList = [
     objectId: "drive"
   },
   {
+    icon: "fa-light fa-envelope-open-text",
+    title: "Email to PDF",
+    target: "_self",
+    pageType: "",
+    description: "Process emails and fill PDF templates automatically",
+    objectId: "email-to-pdf"
+  },
+  {
     icon: "fa-light fa-address-card",
     title: "Documents",
     target: "_self",
