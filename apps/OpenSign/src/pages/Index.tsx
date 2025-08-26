@@ -1,19 +1,12 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, Upload, Users, Settings, LogOut, Info, DollarSign, Shield } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate('/auth');
-    }
-  }, [user, loading, navigate]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -32,7 +25,8 @@ const Index = () => {
   }
 
   if (!user) {
-    return null; // Will redirect to auth
+    navigate('/auth');
+    return null;
   }
 
   return (

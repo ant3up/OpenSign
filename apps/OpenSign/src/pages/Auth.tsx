@@ -20,10 +20,10 @@ const Auth = () => {
   const { signIn, signUp, signInWithGoogle, user } = useAuth();
   const navigate = useNavigate();
 
-  // Redirect authenticated users to main page
+  // Redirect authenticated users to app dashboard
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/app');
     }
   }, [user, navigate]);
 
@@ -36,7 +36,7 @@ const Auth = () => {
     setLoading(false);
     
     if (!error) {
-      navigate('/');
+      navigate('/app');
     }
   };
 
@@ -63,7 +63,7 @@ const Auth = () => {
     setLoading(false);
     
     if (!error) {
-      navigate('/');
+      navigate('/app');
     }
   };
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import Parse from 'parse';
+import Parse from '@/lib/parse';
 import { useToast } from '@/hooks/use-toast';
 
 interface AuthContextType {
@@ -23,12 +23,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check for existing session
     const checkCurrentUser = async () => {
       try {
         const currentUser = Parse.User.current();
         if (currentUser) {
-          setUser(currentUser);
+          setUser(currentUser as unknown as Parse.User);
         }
       } catch (error) {
         console.error('Error checking current user:', error);
@@ -42,14 +41,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const user = await Parse.User.logIn(email, password);
-      setUser(user);
-      
+      const u = await Parse.User.logIn(email, password);
+      setUser(u as unknown as Parse.User);
       toast({
         title: "Welcome back!",
         description: "You've been signed in successfully.",
       });
-      
       return { error: null };
     } catch (error: any) {
       const errorMessage = error.message || 'An unexpected error occurred.';
@@ -64,77 +61,42 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signUp = async (email: string, password: string, fullName?: string) => {
     try {
-      const user = new Parse.User();
-      user.set('username', email);
-      user.set('email', email);
-      user.set('password', password);
-      if (fullName) {
-        user.set('fullName', fullName);
-      }
-      
-      await user.signUp();
-      setUser(user);
-      
+      const u = new Parse.User();
+      u.set('username', email);
+      u.set('email', email);
+      u.set('password', password);
+      if (fullName) u.set('fullName', fullName);
+
+      await u.signUp();
+      setUser(u as unknown as Parse.User);
       toast({
         title: "Account Created!",
         description: "Your account has been created successfully.",
       });
-      
       return { error: null };
     } catch (error: any) {
       const errorMessage = error.message || 'An unexpected error occurred.';
-      if (errorMessage.includes('already taken')) {
-        toast({
-          variant: "destructive",
-          title: "Account Already Exists",
-          description: "This email is already registered. Please sign in instead.",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Sign Up Failed",
-          description: errorMessage,
-        });
-      }
+      toast({
+        variant: "destructive",
+        title: "Sign Up Failed",
+        description: errorMessage,
+      });
       return { error };
     }
   };
 
   const signInWithGoogle = async (googleToken: string) => {
     try {
-      // Use Parse's linkWith method for Google authentication
-      const user = await Parse.User.logInWith('google', { authData: { id: googleToken } });
-      setUser(user);
-      
-      toast({
-        title: "Welcome!",
-        description: "You've been signed in with Google successfully.",
-      });
-      
-      return { error: null };
+      // For Parse < 5, typical Google auth requires Cloud Code or REST auth adapter.
+      // Here we just surface an error until backend is wired.
+      throw new Error('Google sign-in requires backend OAuth adapter configuration.');
     } catch (error: any) {
-      // If user doesn't exist, try to create one
-      try {
-        const user = new Parse.User();
-        user.set('authData', { google: { id: googleToken } });
-        await user.signUp();
-        setUser(user);
-        
-        toast({
-          title: "Account Created!",
-          description: "Your Google account has been linked successfully.",
-        });
-        
-        return { error: null };
-      } catch (signUpError: any) {
-        const errorMessage = signUpError.message || 'Google authentication failed.';
-        toast({
-          variant: "destructive",
-          title: "Google Sign In Failed",
-          description: errorMessage,
-        });
-        return { error: signUpError };
-      }
+      toast({
+        variant: "destructive",
+        title: "Google Sign In Failed",
+        description: error.message || 'Google authentication failed.',
+      });
+      return { error };
     }
   };
 
