@@ -2,7 +2,7 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "cd apps/OpenSign && npm install && npm run build-linux"
+    "buildCommand": "cd apps/OpenSign && npm ci && npm run build-linux"
   },
   "deploy": {
     "startCommand": "cd apps/OpenSign && npm start",
@@ -13,7 +13,7 @@
   },
   "variables": {
     "NODE_ENV": "production",
-    "PORT": "3000",
+    "PORT": "8080",
     "REACT_APP_APPID": "opensign",
     "REACT_APP_SERVERURL": "https://opensign-production-ee42.up.railway.app/parse"
   }
