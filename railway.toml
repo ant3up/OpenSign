@@ -2,7 +2,7 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "cd apps/OpenSign && npx serve -s dist -l 8080"
+startCommand = "cd apps/OpenSign && npx serve -s dist -l tcp://0.0.0.0:$PORT"
 healthcheckPath = "/"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
