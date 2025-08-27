@@ -94,9 +94,15 @@ async function initializeParseServer() {
     console.log('🔧 Parse Server app keys:', parseServer.app ? Object.keys(parseServer.app) : 'no app property');
     
     // Use the same mounting approach that works in test-mount
-    console.log('🔧 Mounting Parse Server at /parse...');
-    app.use('/parse', parseServer);
-    console.log('✅ Parse Server mounted at /parse');
+    const parseMount = (require('./parse-config').mountPath) || '/parse';
+    console.log('🔧 Mounting Parse Server at', parseMount, '...');
+    // Minimal request logger for Parse route
+    app.use(parseMount, (req, res, next) => {
+      console.log('📦 Parse request:', req.method, req.originalUrl);
+      next();
+    });
+    app.use(parseMount, parseServer);
+    console.log('✅ Parse Server mounted at', parseMount);
     
   } catch (error) {
     console.error('❌ Error initializing Parse Server:', error.message);
