@@ -4,9 +4,8 @@ export const AUTH_CONFIG = {
   GOOGLE_CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID",
   
   // Parse Server configuration
-  PARSE_APP_ID: "opensign",
-  PARSE_SERVER_URL: "https://opensign-production-ee42.up.railway.app/parse",
-  PARSE_MASTER_KEY: "opensign_master_key_2024",
+  PARSE_APP_ID: import.meta.env.VITE_PARSE_APP_ID || "opensign",
+  PARSE_SERVER_URL: import.meta.env.VITE_PARSE_SERVER_URL || "https://opensign-production-ee42.up.railway.app/parse"
 };
 
 // Environment check
