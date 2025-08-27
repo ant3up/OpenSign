@@ -8,6 +8,8 @@ console.log('✅ Express, CORS, and MongoDB modules loaded');
 
 // Create Express app
 const app = express();
+// Trust proxy for correct host/origin handling behind Railway
+app.set('trust proxy', 1);
 
 // Add middleware
 app.use(cors());
@@ -96,9 +98,23 @@ async function initializeParseServer() {
     // Use the same mounting approach that works in test-mount
     const parseMount = (require('./parse-config').mountPath) || '/parse';
     console.log('🔧 Mounting Parse Server at', parseMount, '...');
-    // Minimal request logger for Parse route
+    // CORS headers for Parse route (explicit)
+    const allowedOrigins = [
+      'https://web-production-2da3.up.railway.app',
+      process.env.PUBLIC_URL || '',
+    ].filter(Boolean);
     app.use(parseMount, (req, res, next) => {
-      console.log('📦 Parse request:', req.method, req.originalUrl);
+      const origin = req.headers.origin;
+      if (origin && (allowedOrigins.includes(origin) || allowedOrigins.length === 0)) {
+        res.header('Access-Control-Allow-Origin', origin);
+      } else {
+        res.header('Access-Control-Allow-Origin', '*');
+      }
+      res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+      res.header('Access-Control-Allow-Headers', 'Content-Type, X-Parse-Application-Id, X-Parse-REST-API-Key, X-Parse-Installation-Id, X-Parse-Session-Token, X-Requested-With, Authorization');
+      res.header('Access-Control-Allow-Credentials', 'false');
+      if (req.method === 'OPTIONS') return res.sendStatus(204);
+      console.log('📦 Parse request:', req.method, req.originalUrl, 'Origin:', origin || 'none');
       next();
     });
     app.use(parseMount, parseServer);
