@@ -5,6 +5,8 @@
 const mountPath = process.env.PARSE_MOUNT || '/parse';
 const hostname = process.env.PUBLIC_URL || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : 'http://localhost:8080');
 
+const googleAuthAdapter = require('./auth/google');
+
 const parseConfig = {
   databaseURI: process.env.MONGO_URI || process.env.DATABASE_URI || 'mongodb://localhost:27017/opensign',
   appId: process.env.APP_ID || 'opensign',
@@ -21,9 +23,7 @@ const parseConfig = {
     enableForAnonymousUser: true
   },
   auth: {
-    google: {
-      module: './auth/google.js'
-    }
+    google: googleAuthAdapter
   }
 };
 
