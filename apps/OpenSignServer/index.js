@@ -18,6 +18,27 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 console.log('✅ Express app created with middleware');
 
+// Add explicit CORS on Parse mount so browser requests get proper headers
+const parseMountGlobal = (require('./parse-config').mountPath) || '/parse';
+const allowedOriginsGlobal = [
+  'https://web-production-2da3.up.railway.app',
+  process.env.PUBLIC_URL || ''
+].filter(Boolean);
+app.use(parseMountGlobal, (req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && (allowedOriginsGlobal.includes(origin) || allowedOriginsGlobal.length === 0)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+  }
+  res.header('Vary', 'Origin');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, X-Parse-Application-Id, X-Parse-Javascript-Key, X-Parse-REST-API-Key, X-Parse-Installation-Id, X-Parse-Session-Token, X-Requested-With, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'false');
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
+
 // Initialize MongoDB connection
 let mongoClient = null;
 let db = null;
