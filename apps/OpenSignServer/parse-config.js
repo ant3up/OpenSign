@@ -20,9 +20,8 @@ const parseConfig = {
     enableForPublic: true,
     enableForAnonymousUser: true
   },
-  oauth: {
+  auth: {
     google: {
-      // Use custom auth adapter
       module: './auth/google.js'
     }
   }
