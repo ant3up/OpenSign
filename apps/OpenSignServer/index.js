@@ -87,16 +87,7 @@ async function initializeParseServer() {
       throw moduleError;
     }
     
-    try {
-      console.log('🔧 Loading Parse module...');
-      const Parse = require('parse/node');
-      console.log('✅ Parse module loaded');
-    } catch (moduleError) {
-      console.error('❌ Failed to load Parse module:', moduleError.message);
-      throw moduleError;
-    }
-    
-    console.log('✅ Parse modules loaded');
+    console.log('✅ Parse Server module checks passed');
     
     // Parse Server configuration
     console.log('🔧 Creating Parse Server configuration...');
@@ -128,7 +119,7 @@ async function initializeParseServer() {
       const origin = req.headers.origin;
       if (origin && (allowedOrigins.includes(origin) || allowedOrigins.length === 0)) {
         res.header('Access-Control-Allow-Origin', origin);
-      } else {
+    } else {
         res.header('Access-Control-Allow-Origin', '*');
       }
       res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
@@ -136,7 +127,7 @@ async function initializeParseServer() {
       res.header('Access-Control-Allow-Credentials', 'false');
       if (req.method === 'OPTIONS') return res.sendStatus(204);
       console.log('📦 Parse request:', req.method, req.originalUrl, 'Origin:', origin || 'none');
-      next();
+    next();
     });
     app.use(parseMount, parseServer);
     console.log('✅ Parse Server mounted at', parseMount);
@@ -174,8 +165,8 @@ app.listen(port, '0.0.0.0', async function () {
   // Add routes first (before Parse Server initialization)
   app.get('/', (req, res) => {
     console.log('📋 Root endpoint accessed');
-    res.status(200).send('opensign-server is running !!!');
-  });
+  res.status(200).send('opensign-server is running !!!');
+});
 
   app.get('/health', (req, res) => {
     console.log('🏥 Health check endpoint accessed');
