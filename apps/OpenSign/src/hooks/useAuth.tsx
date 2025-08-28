@@ -85,16 +85,35 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const signInWithGoogle = async (googleToken: string) => {
+  const signInWithGoogle = async (idToken: string) => {
     try {
-      // For Parse < 5, typical Google auth requires Cloud Code or REST auth adapter.
-      // Here we just surface an error until backend is wired.
-      throw new Error('Google sign-in requires backend OAuth adapter configuration.');
+      // Send Google id_token to Parse using the Google auth adapter; include sub as id when available
+      // The Parse JS SDK's logInWith for custom providers expects a provider string and authData
+      // We will decode the id_token minimally to extract the 'sub' without validating in the client.
+      const [, payloadB64] = idToken.split('.');
+      const payloadJson = atob(payloadB64.replace(/-/g, '+').replace(/_/g, '/'));
+      const payload = JSON.parse(payloadJson);
+      const sub = payload?.sub;
+
+      const user = await (Parse.User as any).logInWith('google', {
+        authData: {
+          id: sub,
+          id_token: idToken,
+        },
+      });
+
+      setUser(user as unknown as Parse.User);
+      toast({
+        title: "Signed in with Google",
+        description: "You're now signed in.",
+      });
+      return { error: null };
     } catch (error: any) {
+      const errorMessage = error?.message || 'Google authentication failed.';
       toast({
         variant: "destructive",
         title: "Google Sign In Failed",
-        description: error.message || 'Google authentication failed.',
+        description: errorMessage,
       });
       return { error };
     }

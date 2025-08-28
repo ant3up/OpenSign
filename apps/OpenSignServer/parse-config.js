@@ -22,8 +22,8 @@ const parseConfig = {
   },
   oauth: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      // Use custom auth adapter
+      module: './auth/google.js'
     }
   }
 };
