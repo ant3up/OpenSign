@@ -97,14 +97,14 @@ const Security = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <FileText className="w-5 h-5 text-white" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <img src={signiaLogo} alt="Signia" className="w-7 h-7" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900">Signia</h1>
+              <h1 className="text-xl font-bold text-foreground">Signia</h1>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" onClick={() => navigate('/')}>
@@ -138,8 +138,8 @@ const Security = () => {
             <Card key={index} className={`${feature.color} border-2 hover:shadow-lg transition-shadow`}>
               <CardHeader className="text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm">
-                    {feature.icon}
+                  <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center shadow-sm">
+                    <feature.icon className="w-8 h-8 text-primary" />
                   </div>
                 </div>
                 <CardTitle className="text-lg">{feature.title}</CardTitle>
@@ -198,10 +198,10 @@ const Security = () => {
         </div>
 
         {/* Trust Indicators */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            Trusted by Thousands of Organizations
-          </h2>
+        <div className="bg-card rounded-2xl shadow-lg p-8 mb-16">
+                      <h2 className="text-2xl font-bold text-foreground mb-8 text-center">
+              Trusted by Thousands of Organizations
+            </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -240,7 +240,7 @@ const Security = () => {
               size="lg" 
               variant="secondary"
               onClick={() => navigate('/auth')}
-              className="bg-white text-blue-600 hover:bg-gray-100"
+              className="bg-card text-primary hover:bg-muted"
             >
               Start Free Trial
             </Button>
@@ -248,7 +248,7 @@ const Security = () => {
               size="lg" 
               variant="outline"
               onClick={() => navigate('/pricing')}
-              className="border-white text-white hover:bg-white hover:text-blue-600"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
             >
               View Pricing
             </Button>

@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
       <main className="flex-1">
         <HeroSection />

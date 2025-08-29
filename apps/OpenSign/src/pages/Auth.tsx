@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FileText, Eye, EyeOff } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/hooks/useAuth';
+import signiaLogo from '@/assets/signia-logo.png';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -72,21 +73,21 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center">
-              <FileText className="w-7 h-7 text-white" />
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <img src={signiaLogo} alt="Signia" className="w-7 h-7" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Signia</h1>
-              <p className="text-sm text-gray-600">Digital Signatures Made Simple</p>
+              <h1 className="text-2xl font-bold text-foreground">Signia</h1>
+              <p className="text-sm text-muted-foreground">Digital Signatures Made Simple</p>
             </div>
           </div>
-          <h2 className="text-xl font-semibold text-gray-900">Welcome</h2>
-          <p className="text-gray-600">Sign in to your account or create a new one</p>
+          <h2 className="text-xl font-semibold text-foreground">Welcome</h2>
+          <p className="text-muted-foreground">Sign in to your account or create a new one</p>
         </div>
 
         {/* Google Sign In */}
@@ -113,7 +114,7 @@ const Auth = () => {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-gradient-to-br from-blue-50 to-indigo-100 px-2 text-gray-500">
+            <span className="bg-background px-2 text-muted-foreground">
               Or continue with email
             </span>
           </div>

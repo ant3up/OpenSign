@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { UploadSection } from '@/components/UploadSection';
 import { useState, useEffect } from 'react';
 import Parse from '@/lib/parse';
+import signiaLogo from '@/assets/signia-logo.png';
 
 interface Document {
   id: string;
@@ -86,10 +87,10 @@ const Index = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-foreground">Loading...</p>
         </div>
       </div>
     );
@@ -102,24 +103,24 @@ const Index = () => {
 
   if (showUpload) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-        {/* Header */}
-        <header className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-white" />
-                </div>
-                <h1 className="text-xl font-bold text-gray-900">Signia</h1>
+              <div className="min-h-screen bg-background">
+          {/* Header */}
+          <header className="bg-card shadow-sm border-b border-border">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between items-center h-16">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                    <img src={signiaLogo} alt="Signia" className="w-7 h-7" />
+                  </div>
+                  <h1 className="text-xl font-bold text-foreground">Signia</h1>
               </div>
-              <div className="flex items-center space-x-4">
-                <Button variant="outline" size="sm" onClick={() => setShowUpload(false)}>
-                  Back to Dashboard
-                </Button>
-                <span className="text-sm text-gray-600">
-                  Welcome, {user.get('fullName') || user.get('email')}
-                </span>
+                             <div className="flex items-center space-x-4">
+                 <Button variant="outline" size="sm" onClick={() => setShowUpload(false)}>
+                   Back to Dashboard
+                 </Button>
+                 <span className="text-sm text-muted-foreground">
+                   Welcome, {user.get('fullName') || user.get('email')}
+                 </span>
                 <Button variant="outline" size="sm" onClick={handleSignOut}>
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
@@ -132,8 +133,8 @@ const Index = () => {
         {/* Upload Section */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Upload Document</h2>
-            <p className="text-gray-600">Upload a document to get started with electronic signatures</p>
+                         <h2 className="text-3xl font-bold text-foreground mb-2">Upload Document</h2>
+             <p className="text-muted-foreground">Upload a document to get started with electronic signatures</p>
           </div>
           <UploadSection onUploadComplete={fetchDocuments} />
         </main>
@@ -144,16 +145,16 @@ const Index = () => {
   const { pending, completed, drafts } = getStatusCounts();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <FileText className="w-5 h-5 text-white" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <img src={signiaLogo} alt="Signia" className="w-7 h-7" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900">Signia</h1>
+              <h1 className="text-xl font-bold text-foreground">Signia</h1>
             </div>
             <div className="flex items-center space-x-4">
               <nav className="hidden md:flex items-center space-x-6">
@@ -170,9 +171,9 @@ const Index = () => {
                   Security
                 </Button>
               </nav>
-              <span className="text-sm text-gray-600">
-                Welcome, {user.get('fullName') || user.get('email')}
-              </span>
+                             <span className="text-sm text-muted-foreground">
+                 Welcome, {user.get('fullName') || user.get('email')}
+               </span>
               <Button variant="outline" size="sm" onClick={handleSignOut}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Sign Out
@@ -185,8 +186,8 @@ const Index = () => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h2>
-          <p className="text-gray-600">Manage your documents and signatures</p>
+                     <h2 className="text-3xl font-bold text-foreground mb-2">Dashboard</h2>
+           <p className="text-muted-foreground">Manage your documents and signatures</p>
         </div>
 
         {/* Quick Actions */}
@@ -291,18 +292,18 @@ const Index = () => {
           <CardContent>
             {loadingDocs ? (
               <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600">Loading documents...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+                <p className="mt-4 text-muted-foreground">Loading documents...</p>
               </div>
             ) : documents.length > 0 ? (
               <div className="space-y-4">
                 {documents.map((doc) => (
-                  <div key={doc.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div key={doc.id} className="flex items-center justify-between p-4 bg-card rounded-lg border border-border">
                     <div className="flex items-center space-x-3">
                       {getFileIcon(doc.type)}
                       <div>
-                        <p className="font-medium text-gray-900">{doc.name}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="font-medium text-foreground">{doc.name}</p>
+                        <p className="text-sm text-muted-foreground">
                           {(doc.size / 1024 / 1024).toFixed(2)} MB • {doc.signers} signers • {doc.createdAt.toLocaleDateString()}
                         </p>
                       </div>
@@ -321,8 +322,8 @@ const Index = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 text-gray-500">
-                <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+              <div className="text-center py-8 text-muted-foreground">
+                <FileText className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
                 <p>No documents yet</p>
                 <p className="text-sm">Upload your first document to get started</p>
                 <Button 
@@ -344,8 +345,8 @@ const Index = () => {
             <CardDescription>Your recent document activities</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-8 text-gray-500">
-              <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+            <div className="text-center py-8 text-muted-foreground">
+              <FileText className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
               <p>No recent activity</p>
               <p className="text-sm">Upload your first document to get started</p>
               <Button 
