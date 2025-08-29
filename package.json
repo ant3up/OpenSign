@@ -1,7 +1,7 @@
 {
-  "name": "opensign",
+  "name": "signia",
   "version": "1.0.6",
-  "description": "Free and open source alternative to DocuSign",
+  "description": "Electronic signatures that feel wonderfully human",
   "main": "index.js",
   "scripts": {
     "start": "cd apps/OpenSignServer && npm install && npm start",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/opensignlabs/opensign"
+    "url": "github.com/ant3up/signia"
   },
   "keywords": [
     "digital",
@@ -21,7 +21,7 @@
     "electronic",
     "signature"
   ],
-  "author": "OpenSignLabs",
+  "author": "Signia",
   "license": "AGPL-3.0",
   "engines": {
     "node": "22.14.0"

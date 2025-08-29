@@ -1,7 +1,7 @@
-<h1 align="center"><a href='https://www.opensignlabs.com'><img src=https://github.com/OpenSignLabs/OpenSign/assets/5486116/e518cc9c-5de3-47da-950b-f93336b9f14e></a>
-</h1><div align="center">
+<h1 align="center">Signia</h1>
+<div align="center">
 
-[The free and open source alternative to DocuSign](https://www.opensignlabs.com)
+Electronic signatures that feel wonderfully human
 
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/opensignlabs/opensign.svg)](http://isitmaintained.com/project/opensignlabs/opensign "Average time to resolve an issue")
 [![All Contributors](https://img.shields.io/github/all-contributors/opensignlabs/opensign?color=ee8449&style=flat-square)](#contributors)
@@ -24,7 +24,7 @@
   <a href="https://www.linkedin.com/company/opensign%E2%84%A2/about/">LinkedIn</a>
 
 
-## The premier open source document signing solution(DocuSign alternative)
+## Electronic signatures that feel wonderfully human
 
 ---
 </div>
@@ -44,66 +44,58 @@ Please star ⭐ the repo to support us! 😀
 
 ### Introduction
 
-Welcome to OpenSign, the premier open source docusign alternative - document e-signing solution designed to provide a secure, reliable and free alternative to commercial esign platforms like DocuSign, PandaDoc, SignNow, Adobe Sign, Smartwaiver, SignRequest, HelloSign & Zoho sign. Our mission is to democratize the document signing process, making it accessible and straightforward for everyone.
+Welcome to Signia, an electronic signature platform designed to provide a secure, reliable, and human-centered alternative to commercial e-sign platforms. Our mission is to make document signing feel wonderfully human while maintaining enterprise-grade security and compliance.
 
 ---
 
 ### Features
 
-- **Secure PDF E-Signing:** With the help of robust encryption algorithms, OpenSign™ ensures maximum security, privacy & compatibility. Now sign unlimited documents even on the [cloud hosted free version of OpenSign](https://www.opensignlabs.com/).
-- **Annotate Documents:** OpenSign™ allows you to annotate PDF documents with an advanced signing pad that allows hand drawn signatures, uploaded images, typed signatures & saved signatures for the simplest open source document signing experience ever.
-- **User-Friendly Interface:** OpenSign™ was built while keeping Intuitive design in mind for ease of use. Features like "Sign yourself", "Templates", "One click signatures" and "OpenSign™ Drive" makes it stand out of the crowd and even makes it better than a lot of so-called industry leaders. OpenSign intends to provide the best document signing experience in the open source ecosystem.
-- **Multi-signer Support:** OpenSign's ability to invite multiple signers for signing along with the ability to invite by sharing signing links & being able to enforce signing in a sequence makes it the only open source solution that is fully loaded and allows it to compete head-to-head with established players in e-signature space.
-- **Email Unique Code(OTP) verification support for guest signers:** With OpenSign™, your documents are fully secure even when being signed by guest users. Guest signers can only sign the document after entering a unique code sent to their email address. 
-- **"Expiring Docs" & "Rejection":** You can set documents to expire after certain number of days after which nobody will be able to sign. Not just this, OpenSign™ also allows signers to reject signing a document with a reason that will be promptly shared with the sender.
-- **Beautiful email templates:** All document signing invitations, completion notifications & reminders are formatted using great looking email templates. Not just this, you are even allowed to customise the email templates making your free document signing invitations look the way you always wanted them to be.
-- **PDF Template Creation:** OpenSign™ allows you to create and store PDF document templates for repeated use thereby saving you a lot of time & collect e-signatures seamlessly.
-- **OpenSign™ Drive:** It is a centralised secure vault for your digital documents that makes storing, signing, organizing, sharing & archieving your docs a breeze.
-- **Audit Trails & completion certificate:** Being a security focused solution, OpenSign™ makes it a top priority to save detailed logs for tracking document activities along with time-stamps, IP addresses, email IDs & phone numbers. A completion certificate is generated as soon as document is completed which contains all the document related logs for added safety.
-- **API Support:** OpenSign™ API allows seamless integration into existing systems and software. You can generate an API key from the app and refer the [official API docs](https://docs.opensignlabs.com/docs/API-docs/opensign-api-v-1) to start integrating it in your existing applications.
-- **Integrations:** The open source document signing experience becomes even more seamless because of integrations with various Cloud storage systems, CRMs & enterprise platforms. We also have a Zapier integration that allows you to integrate it with virtually any application.
-<img alt="Login page" src="https://github.com/OpenSignLabs/OpenSign/assets/171803164/8016edb6-7d6e-4185-ab72-82d2c4a16032" height='200' > 
-<img alt="Dash_board" src="https://github.com/OpenSignLabs/OpenSign/assets/171803164/6e7b96f7-3154-4c25-bc1e-caf33925cc47" height='200'>
-<img  alt="Widgets" src="https://github.com/OpenSignLabs/OpenSign/assets/171803164/7edb65bd-c265-4b3d-9758-38e79766c5c2" height='200'>
-<img  alt="Request Signature" src="https://github.com/OpenSignLabs/OpenSign/assets/171803164/1697ae46-dcac-41c9-a081-aded25693846" height='200'>
-<img  alt="Create template" src="https://github.com/OpenSignLabs/OpenSign/assets/171803164/c2060fda-50f1-4116-a532-51b94b48463a" height='200'>
-<img  alt="Manage_Template" src="https://github.com/OpenSignLabs/OpenSign/assets/171803164/90310c74-8271-49bd-8c5f-89daa5a623c4" height='200'>
-<img  alt="Folders" src="https://github.com/OpenSignLabs/OpenSign/assets/171803164/a52207e7-3b0e-497c-b5f6-747bc4e67918" height='200'>
-<img alt="OpenSign_Confetti" src="https://github.com/OpenSignLabs/OpenSign/assets/171803164/8f4c6a6e-4a73-439c-9f34-f426044d0a7f" height='200'>
+- **Secure PDF E-Signing:** With robust encryption algorithms, Signia ensures maximum security, privacy & compatibility.
+- **Annotate Documents:** Signia allows you to annotate PDF documents with an advanced signing pad that supports hand drawn signatures, uploaded images, typed signatures & saved signatures.
+- **User-Friendly Interface:** Signia was built with intuitive design in mind for ease of use. Features like "Sign yourself", "Templates", "One click signatures" and "Signia Drive" make it stand out.
+- **Multi-signer Support:** Signia's ability to invite multiple signers for signing along with the ability to invite by sharing signing links & being able to enforce signing in a sequence.
+- **Email Unique Code(OTP) verification support for guest signers:** With Signia, your documents are fully secure even when being signed by guest users.
+- **"Expiring Docs" & "Rejection":** You can set documents to expire after certain number of days after which nobody will be able to sign.
+- **Beautiful email templates:** All document signing invitations, completion notifications & reminders are formatted using great looking email templates.
+- **PDF Template Creation:** Signia allows you to create and store PDF document templates for repeated use.
+- **Signia Drive:** It is a centralized secure vault for your digital documents that makes storing, signing, organizing, sharing & archiving your docs a breeze.
+- **Audit Trails & completion certificate:** Being a security focused solution, Signia makes it a top priority to save detailed logs for tracking document activities.
+- **API Support:** Signia API allows seamless integration into existing systems and software.
+- **Integrations:** The document signing experience becomes even more seamless because of integrations with various Cloud storage systems, CRMs & enterprise platforms.
 
 ---
 
 ### Deploy
 
-Note: The default MongoDB instance used in deployment is not persistant and will be cleared on every restart. To retain your data, configure and supply your own MongoDB connection URL.
+Note: The default MongoDB instance used in deployment is not persistent and will be cleared on every restart. To retain your data, configure and supply your own MongoDB connection URL.
 
 #### DigitalOcean
 [![Deploy on DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/OpenSignLabs/Deploy-OpenSign-to-Digital-Ocean/tree/main&refcode=30db1c901ab0)
 
 #### Docker
-The simplest way to install OpenSign on your own server is using official docker images by running the following command -
+The simplest way to install Signia on your own server is using official docker images by running the following command -
 
 **Command for linux/MacOS**
 ``` 
-export HOST_URL=https://opensign.yourdomain.com && curl --remote-name-all https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/docker-compose.yml https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/Caddyfile https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/.env.local_dev && mv .env.local_dev .env.prod && docker compose up --force-recreate
+export HOST_URL=https://signia.yourdomain.com && curl --remote-name-all https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/docker-compose.yml https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/Caddyfile https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/.env.local_dev && mv .env.local_dev .env.prod && docker compose up --force-recreate
 ```
 **Command for Windows (Powershell)**
 ```
-$env:HOST_URL="https://opensign.yourdomain.com"; Invoke-WebRequest -Uri https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/docker-compose.yml -OutFile docker-compose.yml; Invoke-WebRequest -Uri https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/Caddyfile -OutFile Caddyfile; Invoke-WebRequest -Uri https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/.env.local_dev -OutFile .env.local_dev; Rename-Item -Path .env.local_dev -NewName .env.prod; docker compose up --force-recreate
+$env:HOST_URL="https://signia.yourdomain.com"; Invoke-WebRequest -Uri https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/docker-compose.yml -OutFile docker-compose.yml; Invoke-WebRequest -Uri https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/Caddyfile -OutFile Caddyfile; Invoke-WebRequest -Uri https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/.env.local_dev -OutFile .env.local_dev; Rename-Item -Path .env.local_dev -NewName .env.prod; docker compose up --force-recreate
 ```
 **Command for Windows (CMD/Terminal)**
 ```
-set HOST_URL=https://opensign.yourdomain.com && curl -O https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/docker-compose.yml && curl -O https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/Caddyfile && curl -O https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/.env.local_dev && rename .env.local_dev .env.prod && docker compose up --force-recreate
+set HOST_URL=https://signia.yourdomain.com && curl -O https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/docker-compose.yml && curl -O https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/Caddyfile && curl -O https://raw.githubusercontent.com/OpenSignLabs/OpenSign/main/.env.local_dev && rename .env.local_dev .env.prod && docker compose up --force-recreate
 ```
 Make sure that you have `Docker` and `git` installed before you run this command -
 
-Please refer to the [Installation Guide](https://docs.opensignlabs.com/docs/self-host/docker/run-locally/) for detailed instructions on how to install OpenSign on your system.
+Please refer to the [Installation Guide](https://docs.opensignlabs.com/docs/self-host/docker/run-locally/) for detailed instructions on how to install Signia on your system.
 
 ---
 
 ### Usage
 
-For comprehensive guidelines on how to use OpenSign™, please consult our [User Manual](USAGE.md).
+For comprehensive guidelines on how to use Signia, please consult our [User Manual](USAGE.md).
 
 ---
 
@@ -115,13 +107,13 @@ We welcome contributions from the open-source community. For more information on
 
 ### License
 
-OpenSign is licensed under the AGPL-3 License. For more details, see the [LICENSE](LICENSE) file.
+Signia is licensed under the AGPL-3 License. For more details, see the [LICENSE](LICENSE) file.
 
 ---
 
 ### Acknowledgments
 
-We would like to thank all our contributors and users for their support and feedback. Special thanks to [OpenSignLabs](https://www.opensignlabs.com) for spearheading this initiative.
+We would like to thank all our contributors and users for their support and feedback.
 
 ---
 

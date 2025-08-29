@@ -70,7 +70,7 @@ const HowItWorks = () => {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                 <FileText className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900">OpenSign</h1>
+              <h1 className="text-xl font-bold text-gray-900">Signia</h1>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" onClick={() => navigate('/')}>
@@ -85,9 +85,9 @@ const HowItWorks = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            How OpenSign Works
-          </h1>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+            How Signia Works
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Get your documents signed in minutes, not days. Our simple 4-step process makes digital signatures effortless.
           </p>
@@ -136,8 +136,8 @@ const HowItWorks = () => {
 
         {/* Features */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Why Choose OpenSign?
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+            Why Choose Signia?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
@@ -158,8 +158,8 @@ const HowItWorks = () => {
           <h2 className="text-3xl font-bold mb-4">
             Ready to Get Started?
           </h2>
-          <p className="text-xl mb-6 opacity-90">
-            Join thousands of users who trust OpenSign for their digital signature needs.
+          <p className="text-lg text-gray-600 mb-8">
+            Join thousands of users who trust Signia for their digital signature needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 

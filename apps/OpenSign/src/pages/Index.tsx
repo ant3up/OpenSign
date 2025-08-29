@@ -111,7 +111,7 @@ const Index = () => {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                   <FileText className="w-5 h-5 text-white" />
                 </div>
-                <h1 className="text-xl font-bold text-gray-900">OpenSign</h1>
+                <h1 className="text-xl font-bold text-gray-900">Signia</h1>
               </div>
               <div className="flex items-center space-x-4">
                 <Button variant="outline" size="sm" onClick={() => setShowUpload(false)}>
@@ -153,7 +153,7 @@ const Index = () => {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                 <FileText className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900">OpenSign</h1>
+              <h1 className="text-xl font-bold text-gray-900">Signia</h1>
             </div>
             <div className="flex items-center space-x-4">
               <nav className="hidden md:flex items-center space-x-6">

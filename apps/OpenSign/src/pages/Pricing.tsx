@@ -98,7 +98,7 @@ const Pricing = () => {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                 <FileText className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900">OpenSign</h1>
+              <h1 className="text-xl font-bold text-gray-900">Signia</h1>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" onClick={() => navigate('/')}>
@@ -245,8 +245,8 @@ const Pricing = () => {
           <h2 className="text-3xl font-bold mb-4">
             Ready to Get Started?
           </h2>
-          <p className="text-xl mb-6 opacity-90">
-            Join thousands of users who trust OpenSign for their digital signature needs.
+          <p className="text-lg text-gray-600 mb-8">
+            Join thousands of users who trust Signia for their digital signature needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
