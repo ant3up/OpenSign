@@ -91,6 +91,7 @@ const Auth = () => {
         </div>
 
         {/* Google Sign In */}
+        {/* Temporarily disabled until Google OAuth is configured
         <Card className="shadow-lg border-0">
           <CardContent className="pt-6">
             <div className="flex justify-center">
@@ -108,7 +109,6 @@ const Auth = () => {
           </CardContent>
         </Card>
 
-        {/* Divider */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
@@ -119,6 +119,7 @@ const Auth = () => {
             </span>
           </div>
         </div>
+        */}
 
         {/* Auth Forms */}
         <Card className="shadow-lg border-0">
