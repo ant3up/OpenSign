@@ -1,3 +1,4 @@
+// Vercel configuration for OpenSign frontend - updated build commands
 {
   "buildCommand": "cd apps/OpenSign && npm install && npm run build",
   "outputDirectory": "apps/OpenSign/dist",
