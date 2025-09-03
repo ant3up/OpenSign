@@ -10,6 +10,7 @@ const googleAuthAdapter = require('./auth/google');
 // Debug MongoDB URI
 console.log('🔧 Parse Server MongoDB URI:', process.env.MONGODB_URI ? 'Set' : 'Not set');
 console.log('🔧 Parse Server MongoDB URI format:', process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 20) + '...' : 'None');
+console.log('🔧 Parse Server MongoDB URI full (first 50 chars):', process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 50) + '...' : 'None');
 
 const parseConfig = {
   databaseURI: process.env.MONGODB_URI,
@@ -25,6 +26,14 @@ const parseConfig = {
   fileUpload: {
     enableForPublic: true,
     enableForAnonymousUser: true
+  },
+  // Force MongoDB connection options
+  databaseOptions: {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    ssl: true,
+    retryWrites: true,
+    w: 'majority'
   },
   auth: {
     google: googleAuthAdapter

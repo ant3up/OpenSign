@@ -52,8 +52,17 @@ async function connectToMongoDB() {
       console.error('❌ MONGODB_URI environment variable is required');
       process.exit(1);
     }
+    
+    // Validate MongoDB URI format
+    if (!mongoUri.startsWith('mongodb+srv://') && !mongoUri.startsWith('mongodb://')) {
+      console.error('❌ Invalid MongoDB URI format. Must start with mongodb:// or mongodb+srv://');
+      console.error('❌ Current URI:', mongoUri);
+      process.exit(1);
+    }
+    
     console.log('🔧 Connecting to MongoDB...');
     console.log('🔧 MongoDB URI:', mongoUri.replace(/\/\/[^:]+:[^@]+@/, '//***:***@')); // Hide credentials
+    console.log('🔧 MongoDB URI format:', mongoUri.startsWith('mongodb+srv://') ? 'mongodb+srv://' : 'mongodb://');
     
     mongoClient = new MongoClient(mongoUri);
     await mongoClient.connect();
