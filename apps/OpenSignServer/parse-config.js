@@ -12,8 +12,16 @@ console.log('🔧 Parse Server MongoDB URI:', process.env.MONGODB_URI ? 'Set' : 
 console.log('🔧 Parse Server MongoDB URI format:', process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 20) + '...' : 'None');
 console.log('🔧 Parse Server MongoDB URI full (first 50 chars):', process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 50) + '...' : 'None');
 
+// Validate and fix MongoDB URI if needed
+let databaseURI = process.env.MONGODB_URI;
+if (databaseURI && !databaseURI.includes('/opensign')) {
+  console.log('⚠️ MongoDB URI missing database name, appending /opensign');
+  databaseURI = databaseURI.replace(/\/?$/, '/opensign');
+  console.log('🔧 Fixed MongoDB URI:', databaseURI.substring(0, 50) + '...');
+}
+
 const parseConfig = {
-  databaseURI: process.env.MONGODB_URI,
+  databaseURI,
   appId: process.env.APP_ID || 'opensign',
   masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
   serverURL: process.env.SERVER_URL || `${hostname}${mountPath}`,
