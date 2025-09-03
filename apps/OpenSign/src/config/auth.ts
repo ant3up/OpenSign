@@ -5,7 +5,7 @@ export const AUTH_CONFIG = {
   
   // Parse Server configuration
   PARSE_APP_ID: "opensign",
-  PARSE_SERVER_URL: "https://opensign-production-ee42.up.railway.app/parse",
+  PARSE_SERVER_URL: "https://opensign-backend.onrender.com/parse",
   PARSE_MASTER_KEY: "opensign_master_key_2024",
 };
 
