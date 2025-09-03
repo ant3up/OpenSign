@@ -3,7 +3,7 @@
  */
 
 const mountPath = process.env.PARSE_MOUNT || '/parse';
-const hostname = process.env.PUBLIC_URL || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : 'http://localhost:8080');
+const hostname = process.env.PUBLIC_URL || 'https://opensign-backend.onrender.com';
 
 const googleAuthAdapter = require('./auth/google');
 

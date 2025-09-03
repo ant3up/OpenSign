@@ -22,6 +22,7 @@ console.log('✅ Express app created with middleware');
 const parseMountGlobal = (require('./parse-config').mountPath) || '/parse';
 const allowedOriginsGlobal = [
   'https://web-production-2da3.up.railway.app',
+  'https://opensign-frontend.vercel.app',
   process.env.PUBLIC_URL || ''
 ].filter(Boolean);
 app.use(parseMountGlobal, (req, res, next) => {
@@ -117,6 +118,7 @@ async function initializeParseServer() {
     // CORS headers for Parse route (explicit)
     const allowedOrigins = [
       'https://web-production-2da3.up.railway.app',
+      'https://opensign-frontend.vercel.app',
       process.env.PUBLIC_URL || '',
     ].filter(Boolean);
     app.use(parseMount, (req, res, next) => {
