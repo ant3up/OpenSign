@@ -126,7 +126,23 @@ async function initializeParseServer() {
     const parseMount = (require('./parse-config').mountPath) || '/parse';
     console.log('🔧 Mounting Parse Server at', parseMount, '...');
     
-    // Mount Parse Server (CORS is already handled globally)
+    // Add explicit CORS for Parse Server routes
+    app.use(parseMount, (req, res, next) => {
+      const origin = req.headers.origin;
+      if (origin && allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+      } else {
+        res.header('Access-Control-Allow-Origin', '*');
+      }
+      res.header('Vary', 'Origin');
+      res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+      res.header('Access-Control-Allow-Headers', 'Content-Type, X-Parse-Application-Id, X-Parse-Javascript-Key, X-Parse-REST-API-Key, X-Parse-Installation-Id, X-Parse-Session-Token, X-Requested-With, Authorization');
+      res.header('Access-Control-Allow-Credentials', 'false');
+      if (req.method === 'OPTIONS') return res.sendStatus(204);
+      next();
+    });
+    
+    // Mount Parse Server (CORS is now explicitly handled for Parse routes)
     app.use(parseMount, parseServer);
     console.log('✅ Parse Server mounted at', parseMount);
     
