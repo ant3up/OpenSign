@@ -27,7 +27,7 @@ const parseConfig = {
   serverURL: process.env.SERVER_URL || `${hostname}${mountPath}`,
   publicServerURL: `${hostname}${mountPath}`,
   mountPath,
-  allowClientClassCreation: false,
+  allowClientClassCreation: true, // Allow automatic class creation
   allowCustomObjectId: true,
   enableAnonymousUsers: true,
   maxUploadSize: '100mb',
