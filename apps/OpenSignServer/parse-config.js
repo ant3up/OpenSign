@@ -7,8 +7,12 @@ const hostname = process.env.PUBLIC_URL || 'https://opensign-backend.onrender.co
 
 const googleAuthAdapter = require('./auth/google');
 
+// Debug MongoDB URI
+console.log('🔧 Parse Server MongoDB URI:', process.env.MONGODB_URI ? 'Set' : 'Not set');
+console.log('🔧 Parse Server MongoDB URI format:', process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 20) + '...' : 'None');
+
 const parseConfig = {
-  databaseURI: process.env.MONGODB_URI || process.env.MONGO_URI || process.env.DATABASE_URI,
+  databaseURI: process.env.MONGODB_URI,
   appId: process.env.APP_ID || 'opensign',
   masterKey: process.env.MASTER_KEY || 'opensign_master_key_2024',
   serverURL: process.env.SERVER_URL || `${hostname}${mountPath}`,
