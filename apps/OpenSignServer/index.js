@@ -18,16 +18,17 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 console.log('✅ Express app created with middleware');
 
-// Add explicit CORS on Parse mount so browser requests get proper headers
-const parseMountGlobal = (require('./parse-config').mountPath) || '/parse';
-const allowedOriginsGlobal = [
+// Add comprehensive CORS for all routes
+const allowedOrigins = [
   'https://web-production-2da3.up.railway.app',
   'https://opensign-frontend.vercel.app',
   process.env.PUBLIC_URL || ''
 ].filter(Boolean);
-app.use(parseMountGlobal, (req, res, next) => {
+
+// Global CORS middleware
+app.use((req, res, next) => {
   const origin = req.headers.origin;
-  if (origin && (allowedOriginsGlobal.includes(origin) || allowedOriginsGlobal.length === 0)) {
+  if (origin && allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
   } else {
     res.header('Access-Control-Allow-Origin', '*');
@@ -115,26 +116,8 @@ async function initializeParseServer() {
     // Use the same mounting approach that works in test-mount
     const parseMount = (require('./parse-config').mountPath) || '/parse';
     console.log('🔧 Mounting Parse Server at', parseMount, '...');
-    // CORS headers for Parse route (explicit)
-    const allowedOrigins = [
-      'https://web-production-2da3.up.railway.app',
-      'https://opensign-frontend.vercel.app',
-      process.env.PUBLIC_URL || '',
-    ].filter(Boolean);
-    app.use(parseMount, (req, res, next) => {
-      const origin = req.headers.origin;
-      if (origin && (allowedOrigins.includes(origin) || allowedOrigins.length === 0)) {
-        res.header('Access-Control-Allow-Origin', origin);
-    } else {
-        res.header('Access-Control-Allow-Origin', '*');
-      }
-      res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, X-Parse-Application-Id, X-Parse-REST-API-Key, X-Parse-Installation-Id, X-Parse-Session-Token, X-Requested-With, Authorization');
-      res.header('Access-Control-Allow-Credentials', 'false');
-      if (req.method === 'OPTIONS') return res.sendStatus(204);
-      console.log('📦 Parse request:', req.method, req.originalUrl, 'Origin:', origin || 'none');
-    next();
-    });
+    
+    // Mount Parse Server (CORS is already handled globally)
     app.use(parseMount, parseServer);
     console.log('✅ Parse Server mounted at', parseMount);
     
